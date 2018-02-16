@@ -18,7 +18,7 @@ Future-ICT Challange 2
 #### Hospital View:
 - Can confirm that a customer got his vaccination by filling in his address and clicking confirm
 
-In earlier versions it was also possible to trade tokens to special users in exchange for goods and for some it was possible to sell them for Ethereum which was cut out for simplicity reasons.
+In earlier versions it was also possible to trade tokens to special users in exchange for goods (Buy service button => dummy button) and for some it was possible to sell them for Ethereum which was cut out for simplicity reasons.
 
 
 Our Team
