@@ -22,4 +22,4 @@ In earlier versions it was also possible to trade tokens to special users in exc
 
 
 Our Team
-Zur Samaria, Joel Bieler, Fabian Geissmann, Yannick Schubert, Simon Spindler, Till Muser, Florian Ascheidn, Nilkanth Kumar
+Zur Shmaria, Joel Bieler, Fabian Geissmann, Yannick Schubert, Simon Spindler, Till Muser, Florian Ascheidn, Nilkanth Kumar
