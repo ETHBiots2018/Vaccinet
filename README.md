@@ -3,7 +3,7 @@ Future-ICT Challange 2
 
 ### Getting started:
 
-- Log into MetaMask.
+- Log into MetaMask Ropsten Network.
 - **Please load website from Webstorm!** Otherwise there will be problems with MetaMask and unfourtunately also with the UI as we haven't solved that problem yet.
 
 
