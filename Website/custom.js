@@ -1,6 +1,13 @@
+/*There are still some problems regarding the cache, so there can be errors and strange results for Blockchain operation, when the page is not loaded properly
+The naming convetion for Identifier and Tags has been violated several times.
+The program code could exploit more Modularity
+At sveral points in the code, there could have been more elegant ways to code...
+I wanted to do so much more, e.g. Jquery promises for an elegant way to wait for asynchronus calls
+*/
+
 //--Global Variables---
 //I hate global variables but for the sake of simplicity....
-var contractInstance;
+var contractInstance; //has to be global in order to be adressed in the console for debuging purposes
 var isCenter = false; //bool to know if the user is center
 
 $(window).on('load', function() {
@@ -410,17 +417,19 @@ $(window).on('load', function() {
     } else {
         var errorMsg = 'I doesn\'t have web3 :( Please open in Google Chrome Browser and install the Metamask extension.';
         $('#content').text(errorMsg);
-        alert("I doesn't have Web 3... Webpage won't function properly.")
+        alert("I doesn't have Web 3... Webpsite won't function properly.")
         console.log(errorMsg);
         return;
     }
 
+    //Set default Account
     web3.eth.defaultAccount = web3.eth.accounts[0];
     // create instance of contract object that we use to interface the smart contract
     var Contract = web3.eth.contract(contractAbi);
     contractInstance = Contract.at(contractAddress);
     console.log(contractInstance);
 
+    //Initialize Dialog for Service contract
     dialog = $( "#dialog-form" ).dialog({
         autoOpen: false,
         height: 450,
@@ -436,28 +445,29 @@ $(window).on('load', function() {
         }
     });
 
+    //Open Dialog event
     $( "#buyService" ).button().on( "click", function() {
         dialog.dialog( "open" );
         $('#customer').val(web3.eth.defaultAccount);
     });
 
-
-
+    //Check if User isKnown and thus has already an account
     contractInstance.isKnown.call(function(error, result) {
         if (error) {
             alert("there was a problem with validating your Account. We're really sorry...");
             return;
         }
         if(result === false){
-            initAccount();
+            initAccount(); //initialise Account
         }
         else{
-            setBalanceText();
+            setBalanceText(); //Load Balance of User Account
         }
     });
 
-    prepareCenterView();
+    prepareCenterView(); //Check if user is Center
 
+    //button click Event
     $('#registerbtn').on('click', function(e) {
         e.preventDefault(); // cancel the actual submit
         if(isCenter){
@@ -476,9 +486,10 @@ $(window).on('load', function() {
         }
     });
 
+    //button click Event
     $('#confirmVacc').on('click', function(e) {
         e.preventDefault(); // cancel the actual submit
-        contractInstance.canConfirm.call(function(error, result) {
+        contractInstance.canConfirm.call(function(error, result) { //Has the Hospital approved the Vaccination
             if (error) {
                 alert("there was a problem with validating your Vaccination. We're really sorry...");
                 return;
@@ -488,8 +499,7 @@ $(window).on('load', function() {
                 return;
             }
             else{
-                alert("Yes...There are Tokens to get...");
-                contractInstance.confVaccination(function(error, result){
+                contractInstance.confVaccination(function(error, result){ //If yes, confirm Vaccination and get 1 Token
                     if(error)
                         alert("there was a problem with your transaction. We're really sorry...");
                     else{
@@ -501,12 +511,24 @@ $(window).on('load', function() {
             }
         });
     });
+
+    //button click Event
+    $('#Donate').on('click', function(e) {
+        e.preventDefault(); // cancel the actual submit
+        contractInstance.payIn(function(error){ //Donate
+            if(error)
+                console.log(error);
+        });
+    });
+
 });
 
 function submitTransaction(){
-
+//TODO: Implement protocol to transfer tokens from Customer to public service provider in exchange for Service
+// Due to Lack of time ommited
 }
 
+//Initialize Account
 function initAccount(){
     contractInstance.init(function(error, txHash) {
         if (error) {
@@ -518,6 +540,7 @@ function initAccount(){
     });
 }
 
+//get and Set Balance
 function setBalanceText(){
     contractInstance.myBalance(function(error, result) {
         if (error) {
@@ -529,6 +552,8 @@ function setBalanceText(){
     });
 }
 
+//If its a Center, modify View
+//Really dirty solution: I would rather work with 2 different html views, partial Views (if I've worked with ASP.Net MVC) or 2 divs
 function prepareCenterView(){
     contractInstance.getTypeId.call(web3.eth.defaultAccount, function(error, result) {
         if (error) {
