@@ -2,10 +2,9 @@
 Future-ICT Challange 2
 
 ### Getting started:
-
 - Log into MetaMask Ropsten Network.
-- **Please load website from Webstorm or something else if possible!** Otherwise there will be problems with MetaMask and unfourtunately also with the UI as you need a localhost server (we haven't solved that problem yet).
-
+- Github Page (Provided by one of our Teammate): https://gilderoyraupe.github.io/
+- **Please use the provided link for the Website or load it directly from Webstorm or something else if possible!** Otherwise there will be problems with MetaMask and unfourtunately also with the UI.
 
 ### Usage:
 
